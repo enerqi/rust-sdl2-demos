@@ -1,0 +1,30 @@
+[package]
+name = "sdl"
+version = "0.1.0"
+authors = ["enerqi <enerqi@enerqi>"]
+
+
+
+
+# Download mingw development libraries from http://www.libsdl.org/ (SDL2-devel-2.0.x-mingw.tar.gz).
+# Unpack to a folder of your choosing (You can delete it afterwards).
+#
+# Copy all lib files from
+#
+    # SDL2-devel-2.0.x-mingw\SDL2-2.0.x\x86_64-w64-mingw32\lib
+#
+# inside
+#
+    # C:\Rust\bin\rustlib\x86_64-pc-windows-gnu\lib
+#
+# Copy SDL2.dll from
+#
+    # SDL2-devel-2.0.x-mingw\SDL2-2.0.x\x86_64-w64-mingw32\bin
+#
+# into your cargo project, right next to your Cargo.toml.
+[dependencies]
+sdl2 = "0.9"
+
+# Or from github
+#[dependencies.sdl2]
+#git = "https://github.com/AngryLawyer/rust-sdl2"
