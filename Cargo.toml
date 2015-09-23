@@ -1,9 +1,7 @@
 [package]
-name = "sdl"
+name = "rust_sdl2_demos"
 version = "0.1.0"
 authors = ["enerqi <enerqi@enerqi>"]
-
-
 
 
 # Download mingw development libraries from http://www.libsdl.org/ (SDL2-devel-2.0.x-mingw.tar.gz).
@@ -22,6 +20,10 @@ authors = ["enerqi <enerqi@enerqi>"]
     # SDL2-devel-2.0.x-mingw\SDL2-2.0.x\x86_64-w64-mingw32\bin
 #
 # into your cargo project, right next to your Cargo.toml.
+#
+# We could also put the dll in C:\Windows\System32 or C:\Windows\SysWOW64
+# though we should never do that for anything but our own machine as other applications
+# may expect to use a different version.
 [dependencies]
 sdl2 = "0.9"
 
