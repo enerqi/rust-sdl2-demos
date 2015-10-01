@@ -3,8 +3,10 @@
 extern crate rust_sdl2_demos;
 
 use rust_sdl2_demos::simplewindow as sw;
+use rust_sdl2_demos::simplesurface as ss;
 
 fn main() {
 
-    sw::simple_window();
+    //sw::simple_window();
+    ss::simple_surface();
 }

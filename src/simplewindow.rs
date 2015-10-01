@@ -5,14 +5,19 @@
 //extern crate sdl2;
 use sdl2;
 use sdl2::event::{Event};
+use sdl2::version;
 use sdl2::VideoSubsystem;
 
 pub fn simple_window() {
+
+    let version = version::version();
+    println!("SDL version: {:?}", version);
+
     // well yes, might as well unwrap in this case
     // the sdl::Sdl rust struct is not displayable by default any way
     let sdl_context: sdl2::Sdl = match sdl2::init() {
         Ok(sdl) => {
-            println!("yay context initialised");
+            print!("...");
             sdl
         },
         Err(err) => panic!("Failed initialise sdl context: {}", err),
@@ -37,6 +42,7 @@ pub fn simple_window() {
         Err(err) => panic!("Failed to get the single event pump: {}", err),
     };
 
+    // seems to be shown by default
     window.show();
 
     // loop until we receive a QuitEvent
