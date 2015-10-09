@@ -4,5 +4,9 @@
 extern crate sdl2;
 
 // We export all these modules
+pub mod simplereblitted;
 pub mod simplesurface;
 pub mod simplewindow;
+
+// Crate internal modules
+mod setup;
