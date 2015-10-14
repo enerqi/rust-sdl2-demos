@@ -7,6 +7,7 @@ extern crate sdl2;
 pub mod simplereblitted;
 pub mod simplesurface;
 pub mod simplewindow;
+pub mod surfacekeyswaps;
 
 // Crate internal modules
 mod setup;
