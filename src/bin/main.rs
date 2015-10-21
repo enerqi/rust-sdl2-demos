@@ -2,6 +2,12 @@
 // The library crate itself links to sdl2 etc.
 extern crate rust_sdl2_demos;
 
+#[macro_use]
+//extern crate maplit;
+
+use std::io;
+use std::io::Write;
+
 use rust_sdl2_demos::simplewindow as sw;
 use rust_sdl2_demos::simplesurface as ss;
 use rust_sdl2_demos::simplereblitted as sr;
@@ -9,8 +15,42 @@ use rust_sdl2_demos::surfacekeyswaps as sks;
 
 fn main() {
 
-    //sw::simple_window();
-    //ss::simple_surface();
-    //sr::simple_reblitted();
-    sks::surface_keyswaps();
+        // Each function has its own distinct type so need to give the compiler a hand
+        // either typing an array of funcs or the `as fn()` (void -> void) example below
+    let demos_info = [(sw::simple_window as fn(),
+                  "Render a window that closes when q pressed, verbose"),
+                 (ss::simple_surface,
+                  "Render a surface image onto a window"),
+                 (sr::simple_reblitted,
+                  "Render a surface image onto a window, ensure reblitted if repainting required"),
+                 (sks::surface_keyswaps,
+                  "Render different surface images according to key pressed")];
+
+
+    println!("Rust SDL2 Demos");
+    for (index, tuple) in demos_info.iter().enumerate() {
+        println!("[{}] {}", index, tuple.1);
+    }
+
+    let mut input = String::new();
+    let demo_number: usize;
+    loop {
+        print!("Choose a demo [0-{}]: ", demos_info.len()-1);
+        io::stdout().flush().ok().expect("flush failed");
+
+        input.clear();
+                          // ok (Result -> Option). expect(Option -> T with panic message)
+        io::stdin().read_line(&mut input).ok().expect("read_line failed");
+
+                            // read_line includes the newline at the end
+        if let Ok(n) = input.trim().parse::<usize>() {
+            if n < demos_info.len() {
+                demo_number = n;
+                break;
+            }
+        }
+    }
+
+    let demo = demos_info[demo_number].0;
+    demo();
 }

@@ -26,6 +26,7 @@ authors = ["enerqi <enerqi@enerqi>"]
 # may expect to use a different version.
 [dependencies]
 sdl2 = "0.9"
+maplit = "0.1.2"
 
 # Or from github
 #[dependencies.sdl2]
