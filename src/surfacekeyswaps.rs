@@ -6,7 +6,7 @@ use std::thread; //sleep
 
 use sdl2;
 use sdl2::event::{Event};
-use sdl2::pixels::{PixelFormatEnum};
+//use sdl2::pixels::{PixelFormat};
 use sdl2::surface::{Surface, SurfaceRef};
 
 use setup;
@@ -45,8 +45,12 @@ pub fn surface_keyswaps() {
     // and a nod to pontential performance differences in Rust's eyes
     // scope so we don't borrow `images` as mutable for too long
     {
+        let window_surface_ref: &SurfaceRef = basic_window_setup.window.surface(&events).unwrap();
         let mut add_image_surface = |image_path| {
-            images.push(load_surface(image_path));
+            let surface = load_surface(image_path);
+            let err_msg = format!("Surface conversion to the window's surface pixel format failed: {}", image_path);
+            let optimized_surface = surface.convert(&window_surface_ref.pixel_format()).ok().expect(&err_msg);
+            images.push(optimized_surface);
         };
         // fn add_image_surface<'a>(image_path: &'a str, images: &mut Vec<Surface<'a>>) {
         //     let surface = load_surface(image_path);
@@ -68,7 +72,7 @@ pub fn surface_keyswaps() {
     }
 
 
-    let mut currentKey = KeyPressSurface::Default;
+    let mut current_key = KeyPressSurface::Default;
 
     // loop until we receive a QuitEvent
     'event : loop {
@@ -80,26 +84,26 @@ pub fn surface_keyswaps() {
                 Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Q), ..} =>
                     break 'event,
                 Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Up), ..} =>
-                    currentKey = KeyPressSurface::Up,
+                    current_key = KeyPressSurface::Up,
                 Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Down), ..} =>
-                    currentKey = KeyPressSurface::Down,
+                    current_key = KeyPressSurface::Down,
                 Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Left), ..} =>
-                    currentKey = KeyPressSurface::Left,
+                    current_key = KeyPressSurface::Left,
                 Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Right), ..} =>
-                    currentKey = KeyPressSurface::Right,
+                    current_key = KeyPressSurface::Right,
                 Event::KeyUp{..} =>
-                    currentKey = KeyPressSurface::Default,
+                    current_key = KeyPressSurface::Default,
 
                 _ => continue
             }
         }
 
-        let draw_image = &images[currentKey as usize];
-
+        let draw_image = &images[current_key as usize];
         let window_surface_ref: &SurfaceRef = basic_window_setup.window.surface(&events).unwrap();
         unsafe {
             let mut window_surface: Surface = Surface::from_ll(window_surface_ref.raw());
-            draw_image.blit_scaled(None, &mut window_surface, None);
+            draw_image.blit_scaled(None, &mut window_surface, None).unwrap();
+
         }
 
         basic_window_setup.window.update_surface().unwrap();

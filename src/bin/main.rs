@@ -2,7 +2,7 @@
 // The library crate itself links to sdl2 etc.
 extern crate rust_sdl2_demos;
 
-#[macro_use]
+// #[macro_use]
 //extern crate maplit;
 
 use std::io;

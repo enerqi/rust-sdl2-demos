@@ -3,9 +3,8 @@ use std::path::Path;
 
 use sdl2;
 use sdl2::event::{Event};
-use sdl2::rect::{Rect};
+//use sdl2::rect::{Rect};
 use sdl2::surface::{Surface, SurfaceRef};
-use sdl2::surface;
 use sdl2::version;
 use sdl2::VideoSubsystem;
 
@@ -54,7 +53,7 @@ pub fn simple_surface() {
     {
         // blit (copy) the source surface onto this surface
         let window_surface_ref: &SurfaceRef = window.surface(&events).unwrap();
-        let source_image_rect: Option<Rect> = image_surface.clip_rect();
+        //let source_image_rect: Option<Rect> = image_surface.clip_rect();
 
         // pub fn blit<S: AsMut<SurfaceRef>>(&self, src_rect: Option<Rect>, mut dst: S, mut dst_rect: Option<Rect>) -> SdlResult<Option<Rect>>
         // blit(...) arg2 is an AsMut<SurfaceRef> trait.
@@ -74,7 +73,8 @@ pub fn simple_surface() {
             //image_surface.blit(None, &mut window_surface, dst_clip_rectangle);
             // "What blitting does is take a source surface and stamps a copy of it onto the destination surface. The first argument (this)
             // of SDL_BlitSurface is the source image. The third argument is the destination. We'll worry about the 2nd and 4th arguments in future tutorials."
-            image_surface.blit_scaled(None, &mut window_surface, None);
+            image_surface.blit_scaled(None, &mut window_surface, None).unwrap();
+
         }
 
         // Now that all the backbuffer updating is done

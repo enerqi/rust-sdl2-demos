@@ -39,7 +39,7 @@ pub fn simple_reblitted() {
         let window_surface_ref: &SurfaceRef = basic_window_setup.window.surface(&events).unwrap();
         unsafe {
             let mut window_surface: Surface = Surface::from_ll(window_surface_ref.raw());
-            troll_image_surface.blit_scaled(None, &mut window_surface, None);
+            troll_image_surface.blit_scaled(None, &mut window_surface, None).unwrap();
         }
         basic_window_setup.window.update_surface().unwrap();
 
