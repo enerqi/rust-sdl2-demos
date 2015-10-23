@@ -41,7 +41,7 @@ pub fn surface_keyswaps() {
     let mut images: Vec<Surface> = Vec::with_capacity(images_count);
 
     // As a closure so it's a bit more ergonomic when called
-    // The difference syntax to a normal function is a bit of friction in Jai's philosophy
+    // The different syntax to a normal function is a bit of friction in Jai's philosophy
     // and a nod to pontential performance differences in Rust's eyes
     // scope so we don't borrow `images` as mutable for too long
     {
@@ -103,7 +103,6 @@ pub fn surface_keyswaps() {
         unsafe {
             let mut window_surface: Surface = Surface::from_ll(window_surface_ref.raw());
             draw_image.blit_scaled(None, &mut window_surface, None).unwrap();
-
         }
 
         basic_window_setup.window.update_surface().unwrap();

@@ -12,6 +12,7 @@ use rust_sdl2_demos::simplewindow as sw;
 use rust_sdl2_demos::simplesurface as ss;
 use rust_sdl2_demos::simplereblitted as sr;
 use rust_sdl2_demos::surfacekeyswaps as sks;
+use rust_sdl2_demos::texturerenderer as tr;
 
 fn main() {
 
@@ -24,7 +25,9 @@ fn main() {
                  (sr::simple_reblitted,
                   "Render a surface image onto a window, ensure reblitted if repainting required"),
                  (sks::surface_keyswaps,
-                  "Render different surface images according to key pressed")];
+                  "Render different surface images according to key pressed"),
+                 (tr::texture_render,
+                  "Hardware rendering images and loading pngs with sdl image.")];
 
 
     println!("Rust SDL2 Demos");

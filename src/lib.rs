@@ -8,6 +8,7 @@ pub mod simplereblitted;
 pub mod simplesurface;
 pub mod simplewindow;
 pub mod surfacekeyswaps;
+pub mod texturerenderer;
 
 // Crate internal modules
 mod setup;
