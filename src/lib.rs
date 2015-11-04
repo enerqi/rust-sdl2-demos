@@ -13,6 +13,7 @@ pub mod simplesurface;
 pub mod simplewindow;
 pub mod surfacekeyswaps;
 pub mod texturerenderer;
+pub mod viewport;
 
 // Crate internal modules
 // This means create a module (a namespace basically relative to here, the crate root)

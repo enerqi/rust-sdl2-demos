@@ -8,12 +8,13 @@ extern crate rust_sdl2_demos;
 use std::io;
 use std::io::Write;
 
-use rust_sdl2_demos::simplewindow as sw;
-use rust_sdl2_demos::simplesurface as ss;
+use rust_sdl2_demos::geometry as g;
 use rust_sdl2_demos::simplereblitted as sr;
+use rust_sdl2_demos::simplesurface as ss;
+use rust_sdl2_demos::simplewindow as sw;
 use rust_sdl2_demos::surfacekeyswaps as sks;
 use rust_sdl2_demos::texturerenderer as tr;
-use rust_sdl2_demos::geometry as g;
+use rust_sdl2_demos::viewport as v;
 
 fn main() {
 
@@ -30,12 +31,15 @@ fn main() {
                  (tr::texture_render,
                   "Hardware rendering images and loading pngs with sdl image."),
                  (g::point_drawer,
-                  "Render basic geometry. No images required.")];
+                  "Render basic geometry. No images required."),
+                 (v::viewports,
+                  "Drawing a texture to multiple view ports.")];
 
 
     println!("Rust SDL2 Demos");
     for (index, tuple) in demos_info.iter().enumerate() {
-        println!("[{}] {}", index, tuple.1);
+        let demo_description = tuple.1;
+        println!("[{}] {}", index, demo_description);
     }
 
     let mut input = String::new();
