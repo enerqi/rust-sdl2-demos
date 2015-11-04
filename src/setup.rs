@@ -1,7 +1,9 @@
 use std::path::{Path};
 
 use sdl2;
-use sdl2_image::{self, LoadTexture, INIT_PNG, INIT_JPG};
+use sdl2::pixels::{Color};
+use sdl2::surface::{Surface};
+use sdl2_image::{self, LoadTexture, LoadSurface, INIT_PNG, INIT_JPG};
 //use sdl2::VideoSubsystem;
 use sdl2::render::{Renderer, Texture};
 
@@ -45,4 +47,19 @@ pub fn load_image(image_path: &str, renderer: &Renderer) -> Texture {
     // ...
     // impl LoadTexture for Renderer
     renderer.load_texture(Path::new(image_path)).ok().expect(&err_msg)
+}
+
+pub fn load_keyed_texture(image_path: &str, key_color: Color, renderer: &Renderer) -> Texture {
+
+    let err_msg: String = format!("Failed to load image at path {} into a surface", image_path);
+
+    // sdl2_image LoadSurface Trait
+    // - note `self` is not used in the Trait receiver position. So we do need a type hint.
+    let mut image_surface: Surface = LoadSurface::from_file(Path::new(image_path))
+                                            .ok().expect(&err_msg);
+
+    image_surface.set_color_key(true, key_color).ok().expect("Failed to set color key");
+
+    renderer.create_texture_from_surface(image_surface)
+        .ok().expect("Failed to create texture from image surface")
 }

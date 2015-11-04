@@ -8,6 +8,7 @@ extern crate rust_sdl2_demos;
 use std::io;
 use std::io::Write;
 
+use rust_sdl2_demos::colorkeying as ck;
 use rust_sdl2_demos::geometry as g;
 use rust_sdl2_demos::simplereblitted as sr;
 use rust_sdl2_demos::simplesurface as ss;
@@ -33,7 +34,9 @@ fn main() {
                  (g::point_drawer,
                   "Render basic geometry. No images required."),
                  (v::viewports,
-                  "Drawing a texture to multiple view ports.")];
+                  "Drawing a texture to multiple view ports."),
+                 (ck::color_keying,
+                  "Draw background and sprite image with a specified transparency colour.")];
 
 
     println!("Rust SDL2 Demos");

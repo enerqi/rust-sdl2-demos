@@ -7,6 +7,7 @@ extern crate sdl2_image;
 
 // We export all these modules
 // These are the modules we want main.rs to be able to access as public symbols
+pub mod colorkeying;
 pub mod geometry;
 pub mod simplereblitted;
 pub mod simplesurface;
