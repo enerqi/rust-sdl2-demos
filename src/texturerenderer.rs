@@ -34,7 +34,6 @@ pub fn texture_render() {
         renderer.present(); // screen update from the backbuffer
 
         // Not needed if using vsync - that acts as a throttle
-        // A very primitive frame limiting mechanism for now
         //thread::sleep_ms(10);
     }
 

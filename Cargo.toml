@@ -25,8 +25,9 @@ authors = ["enerqi <enerqi@enerqi>"]
 # though we should never do that for anything but our own machine as other applications
 # may expect to use a different version.
 [dependencies]
-sdl2 = "0.9"
 maplit = "0.1.2"
+num = "*"
+sdl2 = "0.9"
 
 # BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV as surfaces and textures
 # Similar to SDL, need the dll from https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.0-mingw.tar.gz

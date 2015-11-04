@@ -13,6 +13,7 @@ use rust_sdl2_demos::simplesurface as ss;
 use rust_sdl2_demos::simplereblitted as sr;
 use rust_sdl2_demos::surfacekeyswaps as sks;
 use rust_sdl2_demos::texturerenderer as tr;
+use rust_sdl2_demos::geometry as g;
 
 fn main() {
 
@@ -27,7 +28,9 @@ fn main() {
                  (sks::surface_keyswaps,
                   "Render different surface images according to key pressed"),
                  (tr::texture_render,
-                  "Hardware rendering images and loading pngs with sdl image.")];
+                  "Hardware rendering images and loading pngs with sdl image."),
+                 (g::point_drawer,
+                  "Render basic geometry. No images required.")];
 
 
     println!("Rust SDL2 Demos");
