@@ -49,7 +49,7 @@ pub fn load_image(image_path: &str, renderer: &Renderer) -> Texture {
     renderer.load_texture(Path::new(image_path)).ok().expect(&err_msg)
 }
 
-pub fn load_keyed_texture(image_path: &str, key_color: Color, renderer: &Renderer) -> Texture {
+pub fn load_keyed_texture(image_path: &str, key_color: Color, renderer: &Renderer) -> (Texture, (u32, u32)) {
 
     let err_msg: String = format!("Failed to load image at path {} into a surface", image_path);
 
@@ -60,6 +60,9 @@ pub fn load_keyed_texture(image_path: &str, key_color: Color, renderer: &Rendere
 
     image_surface.set_color_key(true, key_color).ok().expect("Failed to set color key");
 
-    renderer.create_texture_from_surface(image_surface)
-        .ok().expect("Failed to create texture from image surface")
+    let w_h_size = image_surface.size();
+
+    (renderer.create_texture_from_surface(image_surface)
+        .ok().expect("Failed to create texture from image surface"),
+     w_h_size)
 }

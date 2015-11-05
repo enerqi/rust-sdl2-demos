@@ -1,33 +1,46 @@
+use setup;
+
+use sdl2::event::{Event};
+use sdl2::pixels::{Color};
+
+
+const SCREEN_WIDTH: u32 = 640;
+const SCREEN_HEIGHT: u32 = 480;
 
 pub fn color_keying() {
 
+    let basic_window_setup = setup::init("Sprite on background", SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    // Note every Texuture is owned by a Renderer. All drops not dropped
-    // beforehand are nuked when the Renderer is dropped.
+    let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
 
-    // SurfaceRef.color_key (getter)
-    // SurfaceRef.set_color_key(boolean, Color)
+    let mut renderer = basic_window_setup.window.renderer()
+            .present_vsync().accelerated().build().unwrap();
 
-    // Alright, because set_color_key is a function on SurfaceRef, does
-    // that mean we cannot use setup::load_image to create a Texture
-    // Presumably we need to load a surface before doing any conversion
-    // to texture?
+    let cyan = Color::RGB(0, 0xff, 0xff);
 
-    // Can sdl image do a plain IMG_load to get an SDL_Surface before we
-    // do renderer.create_texture_from_surface(surface)?
-    // how to get the surface from the file name pointing to the texture?
-    //
-    // sdl2_image ::LoadSurface trait. .from_file(...path) for Surface
-    // vs
-    // sdl2_image ::LoadTexture trait. .load_texture(...path) for Renderer
-    //
-    //
+    let background = setup::load_image("resources/background.png", &renderer);
+    let (sprite, w_h) = setup::load_keyed_texture("resources/stick-man.png", cyan, &renderer);
+    let sprite_target = ::sdl2::rect::Rect::new(240, 190, w_h.0, w_h.1)
+            .ok().expect("sdl create rect failed")
+            .expect("width or height must not be 0");
 
-    // sdl_texture (Texture) (null) default
-    // texture's: w & h (0, 0)
-    //
-    // load from file
-    // render_at!: x & y
-    // cleanup
+
+    'event : loop {
+        for event in events.poll_iter() {
+            match event {
+                Event::Quit{..} => break 'event,
+                // keycode: Option<KeyCode>
+                // https://doc.rust-lang.org/book/patterns.html
+                Event::KeyDown{keycode: Some(::sdl2::keyboard::Keycode::Q), ..} => {
+                    break 'event
+                },
+                _ => continue
+            }
+        }
+
+        renderer.copy(&background, None, None);
+        renderer.copy(&sprite, None, Some(sprite_target)); // after the background
+        renderer.present(); // screen update from the backbuffer
+    }
 
 }
