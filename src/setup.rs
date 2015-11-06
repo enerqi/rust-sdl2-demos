@@ -2,9 +2,9 @@ use std::path::{Path};
 
 use sdl2;
 use sdl2::pixels::{Color};
+use sdl2::rect::{Rect};
 use sdl2::surface::{Surface};
 use sdl2_image::{self, LoadTexture, LoadSurface, INIT_PNG, INIT_JPG};
-//use sdl2::VideoSubsystem;
 use sdl2::render::{Renderer, Texture};
 
 pub struct BasicWindow {
@@ -65,4 +65,10 @@ pub fn load_keyed_texture(image_path: &str, key_color: Color, renderer: &Rendere
     (renderer.create_texture_from_surface(image_surface)
         .ok().expect("Failed to create texture from image surface"),
      w_h_size)
+}
+
+pub fn make_rect(x_y: (i32, i32), w_h: (u32, u32)) -> Rect {
+    Rect::new(x_y.0, x_y.1, w_h.0, w_h.1)
+        .ok().expect("sdl create rect failed")
+        .expect("width or height must not be 0")
 }

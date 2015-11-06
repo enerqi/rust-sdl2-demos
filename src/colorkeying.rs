@@ -20,10 +20,7 @@ pub fn color_keying() {
 
     let background = setup::load_image("resources/background.png", &renderer);
     let (sprite, w_h) = setup::load_keyed_texture("resources/stick-man.png", cyan, &renderer);
-    let sprite_target = ::sdl2::rect::Rect::new(240, 190, w_h.0, w_h.1)
-            .ok().expect("sdl create rect failed")
-            .expect("width or height must not be 0");
-
+    let sprite_target = setup::make_rect((240, 190), w_h);
 
     'event : loop {
         for event in events.poll_iter() {
