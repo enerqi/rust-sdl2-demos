@@ -12,6 +12,7 @@ pub mod geometry;
 pub mod simplereblitted;
 pub mod simplesurface;
 pub mod simplewindow;
+pub mod spritesheet;
 pub mod surfacekeyswaps;
 pub mod texturerenderer;
 pub mod viewport;

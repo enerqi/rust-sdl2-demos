@@ -13,6 +13,7 @@ use rust_sdl2_demos::geometry as g;
 use rust_sdl2_demos::simplereblitted as sr;
 use rust_sdl2_demos::simplesurface as ss;
 use rust_sdl2_demos::simplewindow as sw;
+use rust_sdl2_demos::spritesheet as sheet;
 use rust_sdl2_demos::surfacekeyswaps as sks;
 use rust_sdl2_demos::texturerenderer as tr;
 use rust_sdl2_demos::viewport as v;
@@ -36,7 +37,9 @@ fn main() {
                  (v::viewports,
                   "Drawing a texture to multiple view ports."),
                  (ck::color_keying,
-                  "Draw background and sprite image with a specified transparency colour.")];
+                  "Draw background and sprite image with a specified transparency colour."),
+                 (sheet::sprite_sheet,
+                  "Display textures from a sprite sheet with modulating colours.")];
 
 
     println!("Rust SDL2 Demos");
