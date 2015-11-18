@@ -16,6 +16,7 @@ pub mod simplewindow;
 pub mod spritesheet;
 pub mod surfacekeyswaps;
 pub mod texturerenderer;
+pub mod truetypefonts;
 pub mod viewport;
 
 // Crate internal modules
