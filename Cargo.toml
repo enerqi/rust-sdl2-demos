@@ -2,39 +2,11 @@
 name = "rust_sdl2_demos"
 version = "0.1.0"
 authors = ["enerqi <enerqi@enerqi>"]
+build = "build.rs"
 
-
-# Download mingw development libraries from http://www.libsdl.org/ (SDL2-devel-2.0.x-mingw.tar.gz).
-# Unpack to a folder of your choosing (You can delete it afterwards).
-#
-# Copy all lib files from
-#
-    # SDL2-devel-2.0.x-mingw\SDL2-2.0.x\x86_64-w64-mingw32\lib
-#
-# inside
-#
-    # C:\Rust\bin\rustlib\x86_64-pc-windows-gnu\lib
-#
-# Copy SDL2.dll from
-#
-    # SDL2-devel-2.0.x-mingw\SDL2-2.0.x\x86_64-w64-mingw32\bin
-#
-# into your cargo project, right next to your Cargo.toml.
-#
-# We could also put the dll in C:\Windows\System32 or C:\Windows\SysWOW64
-# though we should never do that for anything but our own machine as other applications
-# may expect to use a different version.
 [dependencies]
 maplit = "0.1.2"
 num = "*"
 sdl2 = "0.9"
-
-# BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV as surfaces and textures
-# Similar to SDL, need the dll from https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.0-mingw.tar.gz
-# into the root of this project or SysWOW64.
-# Plus add lib files (*.a) to C:\Program Files\Rust stable 1.3\bin\rustlib\x86_64-pc-windows-gnu\lib
 sdl2_image = "0.3"
-
-# Or from github
-#[dependencies.sdl2]
-#git = "https://github.com/AngryLawyer/rust-sdl2"
+sdl2_ttf = "0.9"
