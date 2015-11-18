@@ -8,6 +8,7 @@ extern crate rust_sdl2_demos;
 use std::io;
 use std::io::Write;
 
+use rust_sdl2_demos::alphablend as ab;
 use rust_sdl2_demos::colorkeying as ck;
 use rust_sdl2_demos::geometry as g;
 use rust_sdl2_demos::simplereblitted as sr;
@@ -39,7 +40,9 @@ fn main() {
                  (ck::color_keying,
                   "Draw background and sprite image with a specified transparency colour."),
                  (sheet::sprite_sheet,
-                  "Display textures from a sprite sheet with modulating colours.")];
+                  "Display textures from a sprite sheet with modulating colours."),
+                 (ab::alpha_blend,
+                  "Alpha blend two textures.")];
 
 
     println!("Rust SDL2 Demos");
