@@ -4,6 +4,7 @@
 extern crate num;
 extern crate sdl2;
 extern crate sdl2_image;
+extern crate sdl2_ttf;
 
 // We export all these modules
 // These are the modules we want main.rs to be able to access as public symbols
