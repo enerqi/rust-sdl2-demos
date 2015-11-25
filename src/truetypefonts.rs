@@ -1,6 +1,11 @@
+use std::path::{Path};
 
 use sdl2::event::{Event};
+use sdl2::pixels::{Color};
 use sdl2::rect::{Rect};
+use sdl2::render::TextureQuery;
+use sdl2_ttf;
+
 use setup;
 
 
@@ -24,29 +29,29 @@ pub fn font_rendering() {
             .present_vsync().accelerated().build().unwrap();
 
 
-    // // Load a font
-    // let font = sdl2_ttf::Font::from_file(filename, 128).unwrap();
-    // // render a surface, and convert it to a texture bound to the renderer
-    // let surface = font.render("Hello Rust!",
-    //     sdl2_ttf::blended(Color::RGBA(255, 0, 0, 255))).unwrap();
-    // let mut textTexture = renderer.create_texture_from_surface(&surface).unwrap();
-    // // let textTexture = ...
-    // let TextureQuery { width, height, .. } = textTexture.query();
+    // Load a font
+    let path: &Path = Path::new("resources/lazy.ttf");
+    //let attr = fs::metadata(path).ok().expect("cannot query file");
+    let font_px_size = 128;
+    let font = sdl2_ttf::Font::from_file(&path, font_px_size)
+                                 .ok().expect("Failed to load font");
 
-    // // If the example text is too big for the screen, downscale it (and center irregardless)
-    // let padding = 64;
-    // let target = get_centered_rect(width, height, SCREEN_WIDTH - padding,
-    //                                SCREEN_HEIGHT - padding);
-    // renderer.copy(&mut textTexture, None, Some(target));
-    // renderer.present();
+    // render a surface, and convert it to a texture bound to the renderer
+    let surface = font.render("Hello Rust!",
+                              sdl2_ttf::blended(Color::RGBA(255, 0, 0, 255))).unwrap();
+    let mut text_texture = renderer.create_texture_from_surface(&surface)
+                            .ok().expect("Failed to create texture from image surface");
+    let TextureQuery { width, height, .. } = text_texture.query();
 
+    // If the example text is too big for the screen, downscale it (and center irregardless)
+    let padding = 64;
+    let target = get_centered_rect(width, height,
+                                   SCREEN_WIDTH - padding, SCREEN_HEIGHT - padding);
 
     'event : loop {
         for event in events.poll_iter() {
             match event {
                 Event::Quit{..} => break 'event,
-                // keycode: Option<KeyCode>
-                // https://doc.rust-lang.org/book/patterns.html
                 Event::KeyDown{keycode: Some(::sdl2::keyboard::Keycode::Q), ..} => {
                     break 'event
                 },
@@ -54,10 +59,13 @@ pub fn font_rendering() {
             }
         }
 
-        // renderer.copy(&background, None, None);
-        // renderer.copy(&sprite, None, Some(sprite_target)); // after the background
-        // renderer.present(); // screen update from the backbuffer
+        renderer.set_draw_color(Color::RGB(0xff, 0xff, 0xff));
+        renderer.clear();
+        renderer.copy(&mut text_texture, None, Some(target));
+        renderer.present();
     }
+
+    setup::quit();
 }
 
 // Scale fonts to a reasonable size when they're too big (though they might look less smooth)
