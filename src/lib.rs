@@ -17,6 +17,7 @@ pub mod simplewindow;
 pub mod spritesheet;
 pub mod surfacekeyswaps;
 pub mod texturerenderer;
+pub mod timer;
 pub mod truetypefonts;
 pub mod viewport;
 

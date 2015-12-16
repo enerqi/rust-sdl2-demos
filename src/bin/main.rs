@@ -17,6 +17,7 @@ use rust_sdl2_demos::simplewindow as sw;
 use rust_sdl2_demos::spritesheet as sheet;
 use rust_sdl2_demos::surfacekeyswaps as sks;
 use rust_sdl2_demos::texturerenderer as tr;
+use rust_sdl2_demos::timer;
 use rust_sdl2_demos::truetypefonts as ttf;
 use rust_sdl2_demos::viewport as v;
 
@@ -45,7 +46,9 @@ fn main() {
                  (ab::alpha_blend,
                   "Alpha blend two textures."),
                  (ttf::font_rendering,
-                  "Create images from fonts to create renderable textures with text.")];
+                  "Create images from fonts to create renderable textures with text."),
+                 (timer::timer,
+                  "A trivial restartable timer")];
 
 
     println!("Rust SDL2 Demos");
