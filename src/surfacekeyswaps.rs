@@ -5,8 +5,8 @@ use std::path::Path;
 use std::thread; //sleep
 
 use sdl2;
-use sdl2::event::{Event};
-//use sdl2::pixels::{PixelFormat};
+use sdl2::event::Event;
+// use sdl2::pixels::{PixelFormat};
 use sdl2::surface::{Surface, SurfaceRef};
 
 use setup;
@@ -24,7 +24,7 @@ enum KeyPressSurface {
     Down,
     Left,
     Right,
-    Count
+    Count,
 }
 
 // C Like enums are often used to map from a constant to some value in an Array
@@ -48,8 +48,12 @@ pub fn surface_keyswaps() {
         let window_surface_ref: &SurfaceRef = basic_window_setup.window.surface(&events).unwrap();
         let mut add_image_surface = |image_path| {
             let surface = load_surface(image_path);
-            let err_msg = format!("Surface conversion to the window's surface pixel format failed: {}", image_path);
-            let optimized_surface = surface.convert(&window_surface_ref.pixel_format()).ok().expect(&err_msg);
+            let err_msg = format!("Surface conversion to the window's surface pixel format \
+                                   failed: {}",
+                                  image_path);
+            let optimized_surface = surface.convert(&window_surface_ref.pixel_format())
+                                           .ok()
+                                           .expect(&err_msg);
             images.push(optimized_surface);
         };
         // fn add_image_surface<'a>(image_path: &'a str, images: &mut Vec<Surface<'a>>) {
@@ -61,12 +65,16 @@ pub fn surface_keyswaps() {
         // There is this clunkier way though
         for i in 0..images_count {
             match i {
-                i if i == KeyPressSurface::Default as usize => add_image_surface("resources/press.bmp"),
+                i if i == KeyPressSurface::Default as usize => {
+                    add_image_surface("resources/press.bmp")
+                }
                 i if i == KeyPressSurface::Up as usize => add_image_surface("resources/up.bmp"),
                 i if i == KeyPressSurface::Down as usize => add_image_surface("resources/down.bmp"),
                 i if i == KeyPressSurface::Left as usize => add_image_surface("resources/left.bmp"),
-                i if i == KeyPressSurface::Right as usize => add_image_surface("resources/right.bmp"),
-                _ => ()
+                i if i == KeyPressSurface::Right as usize => {
+                    add_image_surface("resources/right.bmp")
+                }
+                _ => (),
             }
         }
     }
@@ -75,26 +83,28 @@ pub fn surface_keyswaps() {
     let mut current_key = KeyPressSurface::Default;
 
     // loop until we receive a QuitEvent
-    'event : loop {
+    'event: loop {
         for event in events.poll_iter() {
             match event {
                 Event::Quit{..} => break 'event,
                 // keycode: Option<KeyCode>
                 // https://doc.rust-lang.org/book/patterns.html
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Q), ..} =>
-                    break 'event,
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Up), ..} =>
-                    current_key = KeyPressSurface::Up,
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Down), ..} =>
-                    current_key = KeyPressSurface::Down,
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Left), ..} =>
-                    current_key = KeyPressSurface::Left,
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Right), ..} =>
-                    current_key = KeyPressSurface::Right,
-                Event::KeyUp{..} =>
-                    current_key = KeyPressSurface::Default,
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Q), ..} => break 'event,
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Up), ..} => {
+                    current_key = KeyPressSurface::Up
+                }
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Down), ..} => {
+                    current_key = KeyPressSurface::Down
+                }
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Left), ..} => {
+                    current_key = KeyPressSurface::Left
+                }
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Right), ..} => {
+                    current_key = KeyPressSurface::Right
+                }
+                Event::KeyUp{..} => current_key = KeyPressSurface::Default,
 
-                _ => continue
+                _ => continue,
             }
         }
 
@@ -116,8 +126,6 @@ pub fn surface_keyswaps() {
 fn load_surface(image_path: &str) -> Surface {
 
     let err_msg: String = format!("Failed to load image bmp at path: {}", image_path);
-                                                        // .as_str() has some RFC convert warning
+    // .as_str() has some RFC convert warning
     Surface::load_bmp(&Path::new(image_path)).ok().expect(&err_msg)
 }
-
-
