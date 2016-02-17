@@ -2,7 +2,7 @@ use std::path::Path;
 use std::thread;
 
 use sdl2;
-use sdl2::event::{Event};
+use sdl2::event::Event;
 use sdl2::surface::{Surface, SurfaceRef};
 
 use setup;
@@ -14,8 +14,7 @@ use setup;
 /// comes back black after being minimised
 pub fn simple_reblitted() {
 
-    let basic_window_setup = setup::init("Ice Troll Reblitted!",
-                                         640, 480);
+    let basic_window_setup = setup::init("Ice Troll Reblitted!", 640, 480);
 
     let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
 
@@ -23,16 +22,14 @@ pub fn simple_reblitted() {
 
     // loop until we receive a QuitEvent
     // Note there is nothing to stop the CPU burning out 1000 fps.
-    'event : loop {
+    'event: loop {
         for event in events.poll_iter() {
             match event {
                 Event::Quit{..} => break 'event,
                 // keycode: Option<KeyCode>
                 // https://doc.rust-lang.org/book/patterns.html
-                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Q), ..} => {
-                    break 'event
-                },
-                _ => continue
+                Event::KeyDown{keycode: Some(sdl2::keyboard::Keycode::Q), ..} => break 'event,
+                _ => continue,
             }
         }
 

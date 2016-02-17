@@ -1,8 +1,8 @@
-use std::path::{Path};
+use std::path::Path;
 
-use sdl2::event::{Event};
-use sdl2::pixels::{Color};
-use sdl2::rect::{Rect};
+use sdl2::event::Event;
+use sdl2::pixels::Color;
+use sdl2::rect::Rect;
 use sdl2::render::TextureQuery;
 use sdl2_ttf;
 use sdl2_ttf::Font;
@@ -26,36 +26,46 @@ pub fn font_rendering() {
 
     let basic_window_setup = setup::init("Font Rendering", SCREEN_WIDTH, SCREEN_HEIGHT);
     let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
-    let mut renderer = basic_window_setup.window.renderer()
-            .present_vsync().accelerated().build().unwrap();
     let ttf = basic_window_setup.ttf_context;
+    let mut renderer = basic_window_setup.window
+                                         .renderer()
+                                         .present_vsync()
+                                         .accelerated()
+                                         .build()
+                                         .unwrap();
+
 
     // Load a font
     let path: &Path = Path::new("resources/lazy.ttf");
-    //let attr = fs::metadata(path).ok().expect("cannot query file");
+    // let attr = fs::metadata(path).ok().expect("cannot query file");
     let font_px_size = 128;
     let font = ttf.load_font(&path, font_px_size)
                                  .ok().expect("Failed to load font");
 
     // render a surface, and convert it to a texture bound to the renderer
+    let font = sdl2_ttf::Font::from_file(&path, font_px_size)
+                   .ok()
+                   .expect("Failed to load font");
     let surface = font.render("Hello Rust!").blended(Color::RGBA(255, 0, 0, 255)).unwrap();
+
     let mut text_texture = renderer.create_texture_from_surface(&surface)
-                            .ok().expect("Failed to create texture from image surface");
+                                   .ok()
+                                   .expect("Failed to create texture from image surface");
     let TextureQuery { width, height, .. } = text_texture.query();
 
     // If the example text is too big for the screen, downscale it (and center irregardless)
     let padding = 64;
-    let target = get_centered_rect(width, height,
-                                   SCREEN_WIDTH - padding, SCREEN_HEIGHT - padding);
+    let target = get_centered_rect(width,
+                                   height,
+                                   SCREEN_WIDTH - padding,
+                                   SCREEN_HEIGHT - padding);
 
-    'event : loop {
+    'event: loop {
         for event in events.poll_iter() {
             match event {
                 Event::Quit{..} => break 'event,
-                Event::KeyDown{keycode: Some(::sdl2::keyboard::Keycode::Q), ..} => {
-                    break 'event
-                },
-                _ => continue
+                Event::KeyDown{keycode: Some(::sdl2::keyboard::Keycode::Q), ..} => break 'event,
+                _ => continue,
             }
         }
 
