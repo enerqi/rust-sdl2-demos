@@ -41,7 +41,7 @@ pub fn init(window_title: &str, width: u32, height: u32) -> BasicWindow {
 }
 
 pub fn quit() {
-    sdl2_image::quit();
+    //sdl2_image::quit();
 }
 
 // Using sdl image to loading a surface and then convert it into a
@@ -87,7 +87,7 @@ pub fn load_font(font_path: &str, pt_size: i32) -> Font {
 pub fn text_texture(text: &str, color: Color, font: &Font, renderer: &Renderer) -> Texture {
 
     let surface_err_msg = format!("Failed to render text '{}' to a surface", text);
-    let surface = font.render(text, sdl2_ttf::blended(color))
+    let surface = font.render(text).blended(color)
         .expect(&surface_err_msg);
     renderer.create_texture_from_surface(&surface)
         .expect("Failed to create texture from image surface")

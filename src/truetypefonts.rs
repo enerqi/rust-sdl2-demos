@@ -5,6 +5,7 @@ use sdl2::pixels::{Color};
 use sdl2::rect::{Rect};
 use sdl2::render::TextureQuery;
 use sdl2_ttf;
+use sdl2_ttf::Font;
 
 use setup;
 
@@ -27,18 +28,17 @@ pub fn font_rendering() {
     let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
     let mut renderer = basic_window_setup.window.renderer()
             .present_vsync().accelerated().build().unwrap();
-
+    let ttf = basic_window_setup.ttf_context;
 
     // Load a font
     let path: &Path = Path::new("resources/lazy.ttf");
     //let attr = fs::metadata(path).ok().expect("cannot query file");
     let font_px_size = 128;
-    let font = sdl2_ttf::Font::from_file(&path, font_px_size)
+    let font = ttf.load_font(&path, font_px_size)
                                  .ok().expect("Failed to load font");
 
     // render a surface, and convert it to a texture bound to the renderer
-    let surface = font.render("Hello Rust!",
-                              sdl2_ttf::blended(Color::RGBA(255, 0, 0, 255))).unwrap();
+    let surface = font.render("Hello Rust!").blended(Color::RGBA(255, 0, 0, 255)).unwrap();
     let mut text_texture = renderer.create_texture_from_surface(&surface)
                             .ok().expect("Failed to create texture from image surface");
     let TextureQuery { width, height, .. } = text_texture.query();
