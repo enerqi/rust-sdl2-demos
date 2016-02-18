@@ -4,8 +4,6 @@ use sdl2::event::Event;
 use sdl2::pixels::Color;
 use sdl2::rect::Rect;
 use sdl2::render::TextureQuery;
-use sdl2_ttf;
-use sdl2_ttf::Font;
 
 use setup;
 
@@ -40,13 +38,11 @@ pub fn font_rendering() {
     // let attr = fs::metadata(path).ok().expect("cannot query file");
     let font_px_size = 128;
     let font = ttf.load_font(&path, font_px_size)
-                                 .ok().expect("Failed to load font");
+                  .ok()
+                  .expect("Failed to load font");
 
-    // render a surface, and convert it to a texture bound to the renderer
-    let font = sdl2_ttf::Font::from_file(&path, font_px_size)
-                   .ok()
-                   .expect("Failed to load font");
-    let surface = font.render("Hello Rust!").blended(Color::RGBA(255, 0, 0, 255)).unwrap();
+    let red: Color = Color::RGBA(255, 0, 0, 255);
+    let surface = font.render("Hello Rust!").blended(red).unwrap();
 
     let mut text_texture = renderer.create_texture_from_surface(&surface)
                                    .ok()

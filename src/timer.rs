@@ -20,7 +20,7 @@ pub fn timer() {
                                          .build()
                                          .unwrap();
 
-    let font = setup::load_font("resources/lazy.ttf", 16);
+    let font = setup::load_font("resources/lazy.ttf", 16, &basic_window_setup.ttf_context);
 
     let mut time_elapsed = basic_window_setup.timer_subsystem.ticks();
     let mut timer_start = time_elapsed;
