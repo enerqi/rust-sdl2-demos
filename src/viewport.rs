@@ -57,7 +57,4 @@ pub fn viewports() {
 
 fn make_rect(x: i32, y: i32, w: u32, h: u32) -> Rect {
     ::sdl2::rect::Rect::new(x, y, w, h)
-        .ok()
-        .expect("sdl create rect failed")
-        .expect("width or height must not be 0")
 }

@@ -3,6 +3,7 @@
 // We need to link to these other crates
 extern crate num;
 extern crate sdl2;
+extern crate sdl2_sys;
 extern crate sdl2_image;
 extern crate sdl2_ttf;
 
@@ -11,6 +12,7 @@ extern crate sdl2_ttf;
 pub mod alphablend;
 pub mod colorkeying;
 pub mod geometry;
+pub mod imagetest;
 pub mod simplereblitted;
 pub mod simplesurface;
 pub mod simplewindow;

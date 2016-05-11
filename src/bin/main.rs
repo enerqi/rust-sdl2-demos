@@ -11,6 +11,7 @@ use std::io::Write;
 use rust_sdl2_demos::alphablend as ab;
 use rust_sdl2_demos::colorkeying as ck;
 use rust_sdl2_demos::geometry as g;
+use rust_sdl2_demos::imagetest as im_test;
 use rust_sdl2_demos::simplereblitted as sr;
 use rust_sdl2_demos::simplesurface as ss;
 use rust_sdl2_demos::simplewindow as sw;
@@ -45,7 +46,8 @@ fn main() {
                       (ab::alpha_blend, "Alpha blend two textures."),
                       (ttf::font_rendering,
                        "Create images from fonts to create renderable textures with text."),
-                      (timer::timer, "A trivial restartable timer")];
+                      (timer::timer, "A trivial restartable timer"),
+                      (im_test::image_test, "Testing loading and reading individual pixels from an image.")];
 
 
     println!("Rust SDL2 Demos");

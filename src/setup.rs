@@ -104,15 +104,12 @@ pub fn text_texture(text: &str, color: Color, font: &Font, renderer: &Renderer) 
 
 pub fn make_rect(x_y: (i32, i32), w_h: (u32, u32)) -> Rect {
     Rect::new(x_y.0, x_y.1, w_h.0, w_h.1)
-        .ok()
-        .expect("sdl create rect failed")
-        .expect("width or height must not be 0")
 }
 
 // handle the annoying Rect i32
 macro_rules! rect(
     ($x:expr, $y:expr, $w:expr, $h:expr) => (
-        Rect::new_unwrap($x as i32, $y as i32, $w as u32, $h as u32)
+        Rect::new($x as i32, $y as i32, $w as u32, $h as u32)
     )
 );
 

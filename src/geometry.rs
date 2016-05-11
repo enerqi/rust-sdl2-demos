@@ -61,20 +61,14 @@ pub fn point_drawer() {
         let rect = Rect::new(SCREEN_WIDTH as i32 / 4,
                              SCREEN_HEIGHT as i32 / 4,
                              SCREEN_WIDTH / 2,
-                             SCREEN_HEIGHT / 2)
-                       .ok()
-                       .expect("sdl create rect failed")
-                       .expect("width or height must not be 0");
+                             SCREEN_HEIGHT / 2);
         renderer.set_draw_color(red);
         renderer.fill_rect(rect);
 
         let unfilled_rect = Rect::new(SCREEN_WIDTH as i32 / 6,
                                       SCREEN_HEIGHT as i32 / 6,
                                       SCREEN_WIDTH * 2 / 3,
-                                      SCREEN_HEIGHT * 2 / 3)
-                                .ok()
-                                .expect("sdl create rect failed")
-                                .expect("width or height must not be 0");
+                                      SCREEN_HEIGHT * 2 / 3);
         renderer.set_draw_color(green);
         renderer.draw_rect(unfilled_rect);
 
