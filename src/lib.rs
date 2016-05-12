@@ -1,6 +1,7 @@
 // This file is our crate root
 
 // We need to link to these other crates
+extern crate image;
 extern crate num;
 extern crate sdl2;
 extern crate sdl2_sys;

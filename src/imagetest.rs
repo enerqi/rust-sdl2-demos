@@ -1,5 +1,6 @@
+use image;
+use image::GenericImage;
 use num::FromPrimitive;
-
 use sdl2::event::Event;
 use sdl2::pixels::{Color, PixelFormatEnum};
 use sdl2::render::{Renderer, Texture, TextureQuery};
@@ -10,6 +11,7 @@ use sdl2_image::{SaveSurface, LoadSurface};
 use sdl2_sys::pixels::SDL_PixelFormat;
 use setup;
 
+use std::fs::File;
 use std::path::Path;
 
 const SCREEN_WIDTH: u32 = 640;
@@ -27,7 +29,7 @@ pub fn image_test() {
                                          .build()
                                          .unwrap();
 
-    let image_path = "maze_mask.png";
+    let image_path = "mask-60x60.png";
     let err_msg: String = format!("Failed to load image at path {} into a surface", image_path);
     // sdl2_image LoadSurface Trait
     // - note `self` is not used in the Trait receiver position. So we do need a type hint.
@@ -71,6 +73,29 @@ pub fn image_test() {
         // use sys::pixels as ll;
         // unsafe{ FromPrimitive::from_u64(ll::SDL_GetWindowPixelFormat(ll_pix_format_ptr.raw()) as u64).unwrap() }
         println!("PixelFormatEnum: {:?}", pixFormat);
+    }
+
+
+    use image::{DynamicImage};
+    use image::DynamicImage::*;
+    let img: DynamicImage = image::open(&Path::new(image_path)).unwrap();
+    match img {
+                // type GrayImage = ImageBuffer<Luma<u8>, Vec<u8>>;
+                // pub struct ImageBuffer<P: Pixel, Container>
+                // Trait image::Pixel: Copy + Clone ...
+         ImageLuma8(ref grayImage) => println!("ImageLuma8(grayImage)"),
+         ImageLumaA8(ref grayAlphaImage) => println!("ImageLumaA8(grayAlphaImage)"),
+         ImageRgb8(ref rgbImage) => println!("ImageRgb8(rgbImage)"),
+         ImageRgba8(ref rgbAlphaImage) => println!("ImageRgba8(rgbAlphaImage)"),
+    }
+    // The dimensions method returns the images width and height
+    println!("dimensions {:?}", img.dimensions());
+
+    // The color method returns the image's ColorType
+    println!("{:?}", img.color());
+
+    for y in (0..img.dimensions().1) {
+        println!("({:?}, {:?}): {:?}", 10, y, img.get_pixel(10, y));
     }
 
     setup::quit();
