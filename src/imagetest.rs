@@ -78,6 +78,7 @@ pub fn image_test() {
 
     use image::{DynamicImage};
     use image::DynamicImage::*;
+    use image::Luma;
     let img: DynamicImage = image::open(&Path::new(image_path)).unwrap();
     match img {
                 // type GrayImage = ImageBuffer<Luma<u8>, Vec<u8>>;
@@ -94,8 +95,22 @@ pub fn image_test() {
     // The color method returns the image's ColorType
     println!("{:?}", img.color());
 
-    for y in (0..img.dimensions().1) {
+    for y in 0..img.dimensions().1 {
         println!("({:?}, {:?}): {:?}", 10, y, img.get_pixel(10, y));
+
+        match img {
+                // type GrayImage = ImageBuffer<Luma<u8>, Vec<u8>>;
+                // pub struct ImageBuffer<P: Pixel, Container>
+                // Trait image::Pixel: Copy + Clone ...
+         ImageLuma8(ref grayImage) => {
+            let pix: &Luma<u8> = grayImage.get_pixel(10, y);
+            println!("LumaPix: {:?}", pix);
+         },
+         // ImageLumaA8(ref grayAlphaImage) => println!("ImageLumaA8(grayAlphaImage)"),
+         // ImageRgb8(ref rgbImage) => println!("ImageRgb8(rgbImage)"),
+         // ImageRgba8(ref rgbAlphaImage) => println!("ImageRgba8(rgbAlphaImage)"),
+         _ => {},
+    }
     }
 
     setup::quit();
