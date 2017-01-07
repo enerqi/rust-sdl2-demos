@@ -37,8 +37,8 @@ pub fn color_keying() {
             }
         }
 
-        renderer.copy(&background, None, None);
-        renderer.copy(&sprite, None, Some(sprite_target)); // after the background
+        renderer.copy(&background, None, None).expect("Texture copy failed");
+        renderer.copy(&sprite, None, Some(sprite_target)).expect("Texture copy failed"); // after the background
         renderer.present(); // screen update from the backbuffer
     }
 

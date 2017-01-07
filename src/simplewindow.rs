@@ -6,7 +6,6 @@
 use sdl2;
 use sdl2::event::Event;
 use sdl2::version;
-use sdl2::VideoSubsystem;
 
 pub fn simple_window() {
 

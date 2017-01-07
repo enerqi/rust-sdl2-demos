@@ -32,7 +32,7 @@ pub fn texture_render() {
             }
         }
 
-        renderer.copy(&texture, None, None);
+        renderer.copy(&texture, None, None).expect("Texture copy failed");
         renderer.present(); // screen update from the backbuffer
 
         // Not needed if using vsync - that acts as a throttle

@@ -67,7 +67,7 @@ pub fn font_rendering() {
 
         renderer.set_draw_color(Color::RGB(0xff, 0xff, 0xff));
         renderer.clear();
-        renderer.copy(&mut text_texture, None, Some(target));
+        renderer.copy(&mut text_texture, None, Some(target)).expect("Texture copy failed");
         renderer.present();
     }
 

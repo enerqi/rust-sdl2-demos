@@ -1,4 +1,5 @@
 use std::path::Path;
+use std::time::Duration;
 use std::thread;
 
 use sdl2;
@@ -42,6 +43,6 @@ pub fn simple_reblitted() {
         basic_window_setup.window.update_surface().unwrap();
 
         // A very primitive frame limiting mechanism for now
-        thread::sleep_ms(10);
+        thread::sleep(Duration::from_millis(10));
     }
 }

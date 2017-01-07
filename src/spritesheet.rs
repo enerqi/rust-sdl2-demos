@@ -52,7 +52,8 @@ pub fn sprite_sheet() {
             let scalar: i32 = (i as i32 + 1) * 90;
             renderer.copy(&sprite_sheet_texture,
                           Some(clip_rects[i]),
-                          Some(setup::make_rect((scalar, scalar), (100, 100))));
+                          Some(setup::make_rect((scalar, scalar), (100, 100))))
+                    .expect("Texture copy failed");
         }
 
         renderer.present(); // screen update from the backbuffer

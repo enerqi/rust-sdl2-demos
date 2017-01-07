@@ -84,7 +84,7 @@ pub fn load_keyed_texture(image_path: &str,
      w_h_size)
 }
 
-pub fn load_font(font_path: &str, pt_size: u16, ttf_context: &sdl2_ttf::Sdl2TtfContext) -> Font {
+pub fn load_font<'a>(font_path: &'a str, pt_size: u16, ttf_context: &'a sdl2_ttf::Sdl2TtfContext) -> Font<'a> {
 
     let path = Path::new(font_path);
     let err_msg = format!("Error loading font at path {}.", font_path);

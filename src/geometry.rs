@@ -63,23 +63,23 @@ pub fn point_drawer() {
                              SCREEN_WIDTH / 2,
                              SCREEN_HEIGHT / 2);
         renderer.set_draw_color(red);
-        renderer.fill_rect(rect);
+        renderer.fill_rect(rect).expect("fill rect failed");
 
         let unfilled_rect = Rect::new(SCREEN_WIDTH as i32 / 6,
                                       SCREEN_HEIGHT as i32 / 6,
                                       SCREEN_WIDTH * 2 / 3,
                                       SCREEN_HEIGHT * 2 / 3);
         renderer.set_draw_color(green);
-        renderer.draw_rect(unfilled_rect);
+        renderer.draw_rect(unfilled_rect).expect("draw rect failed");;
 
         renderer.set_draw_color(blue);
         renderer.draw_line(Point::new(0, SCREEN_HEIGHT as i32 / 2),
-                           Point::new(SCREEN_WIDTH as i32, SCREEN_HEIGHT as i32 / 2));
+                           Point::new(SCREEN_WIDTH as i32, SCREEN_HEIGHT as i32 / 2)).expect("draw line failed");
 
         renderer.set_draw_color(yellow);
         // future (nightly) rust has `step_by` instead of the extern num crate `range_step`
         for i in range_step(0, SCREEN_HEIGHT, 4) {
-            renderer.draw_point(Point::new(SCREEN_WIDTH as i32 / 2, i as i32));
+            renderer.draw_point(Point::new(SCREEN_WIDTH as i32 / 2, i as i32)).expect("draw point failed");;
         }
 
         renderer.present(); // screen update from the backbuffer

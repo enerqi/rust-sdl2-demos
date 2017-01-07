@@ -1,37 +1,34 @@
 use num::FromPrimitive;
 
-use sdl2::event::Event;
-use sdl2::pixels::{Color, PixelFormatEnum};
-use sdl2::render::{Renderer, Texture, TextureQuery};
-use sdl2::surface::{Surface, SurfaceRef};
-use sdl2_ttf::Font;
-use sdl2_image;
-use sdl2_image::{SaveSurface, LoadSurface};
+use sdl2::pixels::PixelFormatEnum;
+use sdl2::surface::Surface;
+//use sdl2_image;
+use sdl2_image::LoadSurface;
 use sdl2_sys::pixels::SDL_PixelFormat;
 use setup;
 
 use std::path::Path;
 
-const SCREEN_WIDTH: u32 = 640;
-const SCREEN_HEIGHT: u32 = 480;
+// const SCREEN_WIDTH: u32 = 640;
+// const SCREEN_HEIGHT: u32 = 480;
 
 pub fn image_test() {
 
 
-    let mut basic_window_setup = setup::init("Timer", SCREEN_WIDTH, SCREEN_HEIGHT);
-    let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
-    let mut renderer = basic_window_setup.window
-                                         .renderer()
-                                         .present_vsync()
-                                         .accelerated()
-                                         .build()
-                                         .unwrap();
+    //let mut basic_window_setup = setup::init("Timer", SCREEN_WIDTH, SCREEN_HEIGHT);
+    //let mut events = basic_window_setup.sdl_context.event_pump().unwrap();
+    // let mut renderer = basic_window_setup.window
+    //                                      .renderer()
+    //                                      .present_vsync()
+    //                                      .accelerated()
+    //                                      .build()
+    //                                      .unwrap();
 
-    let image_path = "maze_mask.png";
+    let image_path = "gimp-bw.png";
     let err_msg: String = format!("Failed to load image at path {} into a surface", image_path);
     // sdl2_image LoadSurface Trait
     // - note `self` is not used in the Trait receiver position. So we do need a type hint.
-    let mut image_surface: Surface = LoadSurface::from_file(Path::new(image_path))
+    let image_surface: Surface = LoadSurface::from_file(Path::new(image_path))
                                          .expect(&err_msg);
     let raw_pixel_data = image_surface.without_lock().unwrap();
 
@@ -45,9 +42,9 @@ pub fn image_test() {
 
     // pixel [x, y] ->
 
-    // for n in raw_pixel_data.iter().take(50) {
-    //     println!("{:?}", n);
-    // }
+    for n in raw_pixel_data.iter().take(50) {
+        println!("{:?}", n);
+    }
 
     // the left over bytes in the pitch are 0 -> 3 bytes of 28 are not used
     // > 127 then ON
@@ -66,11 +63,15 @@ pub fn image_test() {
         println!("BytesPerPixel: {:?}", (*ll_pix_format_ptr).BytesPerPixel);
         println!("BitsPerPixel: {:?}", (*ll_pix_format_ptr).BitsPerPixel);
 
-        let pixFormat: PixelFormatEnum = FromPrimitive::from_u64((*ll_pix_format_ptr).format as u64).unwrap();
+        let pix_format: PixelFormatEnum = FromPrimitive::from_u64((*ll_pix_format_ptr).format as u64).unwrap();
         // Or
         // use sys::pixels as ll;
         // unsafe{ FromPrimitive::from_u64(ll::SDL_GetWindowPixelFormat(ll_pix_format_ptr.raw()) as u64).unwrap() }
-        println!("PixelFormatEnum: {:?}", pixFormat);
+        println!("PixelFormatEnum: {:?}", pix_format);
+
+        // Seems that a grayscale colour space png and an index/palletized png are loaded as PixelFormatEnum::Index8
+        // SDL Surface doesn't make it easy.
+        // The piston/image crate seems better purposed.
     }
 
     setup::quit();

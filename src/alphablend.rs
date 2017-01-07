@@ -62,8 +62,8 @@ pub fn alpha_blend() {
         renderer.set_draw_color(Color::RGB(0xff, 0xff, 0xff));
         renderer.clear();
 
-        renderer.copy(&bg_fade_in_texture, None, None);
-        renderer.copy(&fg_fade_out_texture, None, None);
+        renderer.copy(&bg_fade_in_texture, None, None).expect("Texture copy failed");
+        renderer.copy(&fg_fade_out_texture, None, None).expect("Texture copy failed");
         renderer.present();
     }
 }

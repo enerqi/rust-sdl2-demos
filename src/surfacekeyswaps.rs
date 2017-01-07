@@ -2,7 +2,8 @@
 // show different images depending upon what key is pressed
 
 use std::path::Path;
-use std::thread; //sleep
+use std::thread;
+use std::time::Duration;
 
 use sdl2;
 use sdl2::event::Event;
@@ -118,7 +119,7 @@ pub fn surface_keyswaps() {
         basic_window_setup.window.update_surface().unwrap();
 
         // A very primitive frame limiting mechanism for now
-        thread::sleep_ms(10);
+        thread::sleep(Duration::from_millis(10));
     }
 }
 

@@ -6,7 +6,6 @@ use sdl2::event::Event;
 // use sdl2::rect::{Rect};
 use sdl2::surface::{Surface, SurfaceRef};
 use sdl2::version;
-use sdl2::VideoSubsystem;
 
 pub fn simple_surface() {
 
@@ -85,7 +84,7 @@ pub fn simple_surface() {
         window.update_surface().unwrap();
     }
 
-    window.set_title("Ice Troll");
+    window.set_title("Ice Troll").expect("set title failed");
 
     // loop until we receive a QuitEvent
     'event: loop {

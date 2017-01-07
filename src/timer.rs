@@ -43,7 +43,7 @@ pub fn timer() {
 
         renderer.set_draw_color(Color::RGB(0xff, 0xff, 0xff));
         renderer.clear();
-        renderer.copy(&mut timer_display_texture, None, Some(target));
+        renderer.copy(&mut timer_display_texture, None, Some(target)).expect("Texture copy failed");
         renderer.present();
     }
 

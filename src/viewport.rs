@@ -41,13 +41,13 @@ pub fn viewports() {
         }
 
         renderer.set_viewport(Some(top_left_view_port));
-        renderer.copy(&texture, None, None);
+        renderer.copy(&texture, None, None).expect("Texture copy to top_left_view_port failed");
 
         renderer.set_viewport(Some(top_right_view_port));
-        renderer.copy(&texture, None, None);
+        renderer.copy(&texture, None, None).expect("Texture copy to top_right_view_port failed");
 
         renderer.set_viewport(Some(bottom_view_port));
-        renderer.copy(&texture, None, None);
+        renderer.copy(&texture, None, None).expect("Texture copy to bottom_view_port failed");
 
         renderer.present(); // screen update from the backbuffer
     }
