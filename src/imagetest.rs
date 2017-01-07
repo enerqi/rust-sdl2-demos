@@ -1,8 +1,12 @@
+#[allow(unused_imports)]
+
+use image;
+use image::GenericImage;
 use num::FromPrimitive;
 
+//use sdl2_image;
 use sdl2::pixels::PixelFormatEnum;
 use sdl2::surface::Surface;
-//use sdl2_image;
 use sdl2_image::LoadSurface;
 use sdl2_sys::pixels::SDL_PixelFormat;
 use setup;
@@ -24,7 +28,7 @@ pub fn image_test() {
     //                                      .build()
     //                                      .unwrap();
 
-    let image_path = "gimp-bw.png";
+    let image_path = "mask-60x60.png";
     let err_msg: String = format!("Failed to load image at path {} into a surface", image_path);
     // sdl2_image LoadSurface Trait
     // - note `self` is not used in the Trait receiver position. So we do need a type hint.
@@ -72,6 +76,44 @@ pub fn image_test() {
         // Seems that a grayscale colour space png and an index/palletized png are loaded as PixelFormatEnum::Index8
         // SDL Surface doesn't make it easy.
         // The piston/image crate seems better purposed.
+    }
+
+
+    use image::{DynamicImage};
+    use image::DynamicImage::*;
+    use image::Luma;
+    let img: DynamicImage = image::open(&Path::new(image_path)).unwrap();
+    match img {
+                // type GrayImage = ImageBuffer<Luma<u8>, Vec<u8>>;
+                // pub struct ImageBuffer<P: Pixel, Container>
+                // Trait image::Pixel: Copy + Clone ...
+         ImageLuma8(_) => println!("ImageLuma8(gray_image)"),
+         ImageLumaA8(_) => println!("ImageLumaA8(gray_alpha_image)"),
+         ImageRgb8(_) => println!("ImageRgb8(rgb_image)"),
+         ImageRgba8(_) => println!("ImageRgba8(rgb_alpha_image)"),
+    }
+    // The dimensions method returns the images width and height
+    println!("dimensions {:?}", img.dimensions());
+
+    // The color method returns the image's ColorType
+    println!("{:?}", img.color());
+
+    for y in 0..img.dimensions().1 {
+        println!("({:?}, {:?}): {:?}", 10, y, img.get_pixel(10, y));
+
+        match img {
+                // type gray_image = ImageBuffer<Luma<u8>, Vec<u8>>;
+                // pub struct ImageBuffer<P: Pixel, Container>
+                // Trait image::Pixel: Copy + Clone ...
+         ImageLuma8(ref gray_image) => {
+            let pix: &Luma<u8> = gray_image.get_pixel(10, y);
+            println!("LumaPix: {:?}", pix);
+         },
+         // ImageLumaA8(ref gray_alpha_image) => println!("ImageLumaA8(gray_alpha_image)"),
+         // ImageRgb8(ref rgb_image) => println!("ImageRgb8(rgb_image)"),
+         // ImageRgba8(ref rgb_alpha_image) => println!("ImageRgba8(rgb_alpha_image)"),
+         _ => {},
+    }
     }
 
     setup::quit();

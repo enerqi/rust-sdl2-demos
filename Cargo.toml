@@ -5,6 +5,7 @@ authors = ["enerqi <enerqi@enerqi>"]
 build = "build.rs"
 
 [dependencies]
+image = "*"
 maplit = "0.1.2"
 num = "*"
 sdl2 = "^0.25.0"
